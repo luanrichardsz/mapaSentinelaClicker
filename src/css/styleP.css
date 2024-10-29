@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+    background-image: url("../img/back.jpg"); 
+    background-repeat: no-repeat;  
+    background-size: cover;
+    font-family: Roboto;
+}
+#forms{
+    font-size: 16px;
+    background-color: rgba(128, 128, 128, 0.50);
+    text-align: center;
+    border: 2px solid;
+    margin: 80px 400px;
+    border-radius: 8px;
+}
+input {
+    width: 350px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+input:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+    font-family: Roboto;
+    width: 100%;
+    max-width: 350px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    height: 150px;
+}
+
+#move-label{
+    margin-right: 200px;
+}
+
+#submit {
+    margin: 20px;
+    width: 200px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(14, 14, 59);
+}

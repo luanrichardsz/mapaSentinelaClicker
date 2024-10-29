@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="../img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/stylePubli.css">
+    <title>Sentinela 081</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .post {
+            display: flex;
+            margin-bottom: 15px;
+            border: 1px solid #e1e8ed;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f5f8fa;
+        }
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .content {
+            flex: 1;
+        }
+        .username {
+            font-weight: bold;
+            color: #1da1f2;
+        }
+        .message-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #modal-content {
+            background: black;
+            margin: 100px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+        .close {
+            cursor: pointer;
+            float: right;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ocorrências Registradas</h1>
+    <div id="ocorrencias-list"></div>
+    <a href="/">Voltar</a>
+
+    <div id="message-modal" class="message-modal">
+        <div id="modal-content">
+            <span class="close">&times;</span> 
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script>
+        fetch('/api/ocorrencias')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('ocorrencias-list');
+                data.forEach(o => {
+                    const post = document.createElement('div');
+                    post.classList.add('post');
+
+                    // Adicionando foto de perfil
+                    const profilePic = document.createElement('img');
+                    profilePic.src = o.profilePic || 'https://i.pinimg.com/236x/14/71/d6/1471d6e29dce10e758a39fced2540ab3.jpg'; // URL da foto de perfil
+                    profilePic.classList.add('profile-pic');
+
+                    // Conteúdo da postagem
+                    const content = document.createElement('div');
+                    content.classList.add('content');
+
+                    const username = document.createElement('div');
+                    username.classList.add('username');
+                    username.textContent = o.usuario || 'Pega na minha'; // Nome do usuário
+
+                    const message = document.createElement('div');
+                    message.textContent = `${o.ocorrido} - Endereço: ${o.endereco}`;
+
+                    // Adicionar evento de clique para o modal
+                    message.addEventListener('click', () => {
+                        const modalMessage = document.getElementById('modal-message');
+                        modalMessage.textContent = `Ocorrência: ${o.ocorrido}\nEndereço: ${o.endereco}`;
+                        document.getElementById('message-modal').style.display = 'block';
+                    });
+
+                    content.appendChild(username);
+                    content.appendChild(message);
+                    post.appendChild(profilePic);
+                    post.appendChild(content);
+                    list.appendChild(post);
+                });
+            })
+            .catch(err => console.error('Erro ao carregar ocorrências:', err));
+
+        // Fechar o modal ao clicar no "x"
+        document.querySelector('.close').addEventListener('click', () => {
+            document.getElementById('message-modal').style.display = 'none';
+        });
+
+        // Fechar o modal ao clicar fora do conteúdo
+        document.getElementById('message-modal').addEventListener('click', (event) => {
+            if (event.target === document.getElementById('message-modal')) {
+                document.getElementById('message-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

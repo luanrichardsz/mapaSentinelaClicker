@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="imagex/png" href="../img/logo.png">
+    <link rel="stylesheet" href="../css/styleP.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinela 081</title>
+</head>
+<body>
+    <div id="forms">
+
+        <h1>Faça Sua Ocorrência: </h1>
+            
+        <form action="/submit" method="post">
+            <label id="move-label" for="ocorrido">Descreva o Ocorrido: </label> <br>
+            <textarea id="ocorrido" name="ocorrido" placeholder="Qual foi a situação que você presenciou?" required></textarea> <br>
+            <label for="ocorrencia" id="move-label"> Endereço do Ocorrido: </label> <br>
+            <input type="text" name="endereco" id="message" readonly> <br>
+
+            <input type="submit" id="submit" value="Enviar">
+        </form>
+            
+    </div>
+    <script src="script.js"> </script>
+</body>
+</html>
